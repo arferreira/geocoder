@@ -1,3 +1,5 @@
+use serde::Deserialize;
+
 /// LatLng is a struct that represents a latitude and longitude pair.
 #[derive(Debug, Clone, Copy)]
 pub struct LatLng {
@@ -23,7 +25,7 @@ pub struct Geometry {
 }
 
 /// Address is a struct that represents a formatted address.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Deserialize)]
 pub struct Address {
     pub long_name: String,
     pub short_name: String,
