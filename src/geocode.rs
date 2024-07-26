@@ -9,6 +9,17 @@ pub struct Geocoder {
 
 
 impl Geocoder {
+    /// Creates a new instance of Geocoder.
+    ///
+    /// # Arguments
+    ///
+    /// * `api_key` - A string slice that holds the API key.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// let geocoder = Geocoder::new("your_api_key");
+    /// ```
     pub fn new(api_key: &str) -> Geocoder {
         Self {
             api_key: api_key.to_string(),
@@ -16,7 +27,33 @@ impl Geocoder {
         }
     }
 
-    /// Geocode a location string to an address
+    /// Geocodes a location string to an address.
+    ///
+    /// # Arguments
+    ///
+    /// * `location` - A string slice that holds the location to geocode.
+    ///
+    /// # Returns
+    ///
+    /// A `Result` which is:
+    /// - `Ok` containing an `Address` if the geocoding is successful.
+    /// - `Err` containing a `GeocoderError` if there is an error.
+    ///
+    /// # Errors
+    ///
+    /// This function will return an error if the request fails, the response cannot be parsed,
+    /// or if the address is not found.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// let geocoder = Geocoder::new("your_api_key");
+    /// let result = geocoder.geocode("1600 Amphitheatre Parkway, Mountain View, CA").await;
+    /// match result {
+    ///     Ok(address) => println!("Address: {:?}", address),
+    ///     Err(e) => eprintln!("Error: {}", e),
+    /// }
+    /// ```
     pub async fn geocode(&self, location: &str) -> Result<Address, GeocoderError> {
         let url = format!("https://maps.googleapis.com/maps/api/geocode/json?address={}&key={}", location, self.api_key);
         let response = self.client.get(&url).send().await?;

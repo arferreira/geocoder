@@ -1,5 +1,6 @@
 use thiserror::Error;
 
+/// GeocoderError is an enum that represents errors that can occur while using the Geocoder.
 #[derive(Debug, Error)]
 pub enum GeocoderError {
     #[error("request failed")]
