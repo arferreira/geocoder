@@ -14,5 +14,5 @@ thiserror = "1.0"
 
 [dev-dependencies]
 tokio = { version = "1.28", features = ["full"] }
-rustfmt = "1.4.37"
-clippy = "0.1.54"
+rustfmt = "0.10.0"
+clippy = "0.0.302"

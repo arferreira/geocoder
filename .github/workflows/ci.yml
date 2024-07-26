@@ -51,6 +51,8 @@ jobs:
       run: cargo build --verbose
 
     - name: Run tests
+      env:
+        GEOCODER_API_KEY: ${{ secrets.GEOCODER_API_KEY }}
       run: cargo test --verbose
 
     - name: Check formatting
