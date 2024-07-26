@@ -2,5 +2,11 @@
 name = "geocoder"
 version = "0.1.0"
 edition = "2021"
+authors = ["Antonio Souza <arfs.antonio@gmail.com>"]
 
 [dependencies]
+reqwest = {version = "0.12.5", features = ["json"]}
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+
