@@ -7,7 +7,7 @@ description = "A Rust crate that provides an easy way to use the Google Geocodin
 license = "MIT"
 repository = "https://github.com/arferreira/geocoder"
 documentation = "https://docs.rs/geocoder"
-keywords = ["geocoding", "", "google-maps", "rust"]
+keywords = ["geocoding", "google-maps", "rust"]
 categories = ["api-bindings", "web-programming"]
 
 [dependencies]
