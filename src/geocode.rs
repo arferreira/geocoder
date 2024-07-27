@@ -1,12 +1,11 @@
 use reqwest::Client;
 
-use crate::{errors::GeocoderError, structs::{Address, GeocodeResponse}};
+use crate::{errors::GeocoderError, structs::GeocodeResponse};
 
 pub struct Geocoder {
     api_key: String,
     client: Client,
 }
-
 
 impl Geocoder {
     /// Creates a new instance of Geocoder.
@@ -14,12 +13,7 @@ impl Geocoder {
     /// # Arguments
     ///
     /// * `api_key` - A string slice that holds the API key.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// let geocoder = Geocoder::new("your_api_key");
-    /// ```
+
     pub fn new(api_key: &str) -> Geocoder {
         Self {
             api_key: api_key.to_string(),
@@ -43,23 +37,14 @@ impl Geocoder {
     ///
     /// This function will return an error if the request fails, the response cannot be parsed,
     /// or if the address is not found.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// let geocoder = Geocoder::new("your_api_key");
-    /// let result = geocoder.geocode("1600 Amphitheatre Parkway, Mountain View, CA").await;
-    /// match result {
-    ///     Ok(address) => println!("Address: {:?}", address),
-    ///     Err(e) => eprintln!("Error: {}", e),
-    /// }
-    /// ```
-    pub async fn geocode(&self, location: &str) -> Result<Address, GeocoderError> {
-        let url = format!("https://maps.googleapis.com/maps/api/geocode/json?address={}&key={}", location, self.api_key);
+    pub async fn geocode(&self, location: &str) -> Result<GeocodeResponse, GeocoderError> {
+        let url = format!(
+            "https://maps.googleapis.com/maps/api/geocode/json?address={}&key={}",
+            location, self.api_key
+        );
         let response = self.client.get(&url).send().await?;
 
         let body: serde_json::Value = response.json().await?;
-
 
         // Parse response to extract relevant data
         let geocode_response: GeocodeResponse = match serde_json::from_value(body) {
@@ -73,6 +58,6 @@ impl Geocoder {
         }
 
         // Return the first result
-        Ok(geocode_response.results[0].address_components[0].clone())
+        Ok(geocode_response)
     }
 }
