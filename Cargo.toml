@@ -1,6 +1,6 @@
 [package]
 name = "geocoder"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 authors = ["Antonio Souza <arfs.antonio@gmail.com>"]
 description = "A Rust crate that provides an easy way to use the Google Geocoding API."
