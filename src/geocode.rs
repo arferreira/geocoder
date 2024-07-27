@@ -1,6 +1,6 @@
 use reqwest::Client;
 
-use crate::{errors::GeocoderError, structs::{Address, GeocodeResponse}};
+use crate::{errors::GeocoderError, structs::{GeocodeResponse}};
 
 pub struct Geocoder {
     api_key: String,
@@ -38,7 +38,7 @@ impl Geocoder {
     ///
     /// This function will return an error if the request fails, the response cannot be parsed,
     /// or if the address is not found.
-    pub async fn geocode(&self, location: &str) -> Result<Address, GeocoderError> {
+    pub async fn geocode(&self, location: &str) -> Result<GeocodeResponse, GeocoderError> {
         let url = format!("https://maps.googleapis.com/maps/api/geocode/json?address={}&key={}", location, self.api_key);
         let response = self.client.get(&url).send().await?;
 
@@ -57,6 +57,6 @@ impl Geocoder {
         }
 
         // Return the first result
-        Ok(geocode_response.results[0].address_components[0].clone())
+        Ok(geocode_response)
     }
 }

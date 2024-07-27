@@ -16,9 +16,9 @@ mod tests {
         let result = geocoder.geocode("1600 Amphitheatre Parkway, Mountain View, CA").await;
 
         assert!(result.is_ok());
-        let address = result.unwrap();
+        let geocode_response = result.unwrap();
 
-        assert_eq!(address.long_name, "1600");
-
+        assert_eq!(geocode_response.status, "OK");
+        assert_eq!(geocode_response.results.len(), 1);
     }
 }
