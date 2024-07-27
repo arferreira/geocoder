@@ -1,12 +1,11 @@
 use reqwest::Client;
 
-use crate::{errors::GeocoderError, structs::{GeocodeResponse}};
+use crate::{errors::GeocoderError, structs::GeocodeResponse};
 
 pub struct Geocoder {
     api_key: String,
     client: Client,
 }
-
 
 impl Geocoder {
     /// Creates a new instance of Geocoder.
@@ -39,11 +38,13 @@ impl Geocoder {
     /// This function will return an error if the request fails, the response cannot be parsed,
     /// or if the address is not found.
     pub async fn geocode(&self, location: &str) -> Result<GeocodeResponse, GeocoderError> {
-        let url = format!("https://maps.googleapis.com/maps/api/geocode/json?address={}&key={}", location, self.api_key);
+        let url = format!(
+            "https://maps.googleapis.com/maps/api/geocode/json?address={}&key={}",
+            location, self.api_key
+        );
         let response = self.client.get(&url).send().await?;
 
         let body: serde_json::Value = response.json().await?;
-
 
         // Parse response to extract relevant data
         let geocode_response: GeocodeResponse = match serde_json::from_value(body) {
