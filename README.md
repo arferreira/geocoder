@@ -13,7 +13,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-geocoder = "0.1.0"
+geocoder = "0.1.2"
 ```
 
 ## Usage
